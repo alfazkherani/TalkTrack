@@ -17,5 +17,22 @@ export const googleSignIn = async (options: GoogleSignInOptions = {}) => {
   }
 };
 
+interface GitHubSignInOptions {
+  callbackUrl?: string;
+}
+
+export const githubSignIn = async (options: GitHubSignInOptions = {}) => {
+  try {
+    const result = await signIn("github", {
+      callbackUrl: options.callbackUrl || "/",
+      redirect: true,
+    });
+    return { success: true, result };
+  } catch (error) {
+    console.error("GitHub Sign-in Error:", error);
+    return { success: false, error };
+  }
+};
+
 // Add more auth-related utilities here as needed
 export const isAuthenticated = (status: string) => status === "authenticated";
