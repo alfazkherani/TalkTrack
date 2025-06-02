@@ -1,10 +1,34 @@
+"use client";
+
 import Image from "next/image";
 import { WelcomeHeader } from "@/components/auth/WelcomeHeader";
 import { SocialLoginButtons } from "@/components/auth/SocialLoginButtons";
 import { LoginForm } from "@/components/auth/LoginForm";
 import { getString } from "@/utils/strings";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { isAuthenticated } from "@/utils/auth";
 
 export default function LoginPage() {
+  const { status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isAuthenticated(status)) {
+      console.log("User is authenticated");
+    }
+  }, [status, router]);
+
+  // Show loading state while checking authentication
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
       <div className="flex w-full max-w-4xl">

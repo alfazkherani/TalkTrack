@@ -1,31 +1,25 @@
-import Image from "next/image";
+"use client";
+
 import { getString } from "@/utils/strings";
+import { googleSignIn } from "@/utils/auth";
+import { GoogleIcon } from "@/statics/icons/google";
 
 export const SocialLoginButtons = () => {
+  const handleGoogleSignIn = async () => {
+    await googleSignIn();
+  };
+
   return (
     <div className="space-y-4 mb-6">
-      <button className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-        <Image
-          src="/resources/google-icon.svg"
-          alt={getString("auth.altText.googleIcon")}
-          width={20}
-          height={20}
-          className="w-5 h-5"
-        />
+      <button
+        onClick={handleGoogleSignIn}
+        className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+      >
+        <div className="w-5 h-5 flex items-center justify-center">
+          <GoogleIcon />
+        </div>
         <span className="text-gray-700">
           {getString("auth.socialLogin.google")}
-        </span>
-      </button>
-      <button className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-        <Image
-          src="/resources/github-icon.svg"
-          alt={getString("auth.altText.githubIcon")}
-          width={20}
-          height={20}
-          className="w-5 h-5"
-        />
-        <span className="text-gray-700">
-          {getString("auth.socialLogin.github")}
         </span>
       </button>
     </div>
